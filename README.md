@@ -124,15 +124,24 @@ src/
 
 ## Capturas de pantalla
 
-Para la entrega final, colocar las capturas principales en una carpeta `docs/screenshots/` con nombres claros. Capturas sugeridas:
+Las evidencias visuales se encuentran en la carpeta `screenshots/`.
 
-| Vista | Archivo sugerido | Evidencia |
-| --- | --- | --- |
-| Listado principal | `docs/screenshots/listado.png` | Tarjetas con nombre, numero, imagen y tipos |
-| Detalle | `docs/screenshots/detalle.png` | Informacion completa de un Pokemon |
-| Filtros y favoritos | `docs/screenshots/filtros-favoritos.png` | Busqueda, filtro por tipo y favoritos |
-| Comparador | `docs/screenshots/comparador.png` | Comparacion de estadisticas base |
-| Responsive | `docs/screenshots/responsive.png` | Vista adaptada a pantalla pequena |
+| Vista | Captura |
+| --- | --- |
+| Listado principal en modo claro | <img src="screenshots/LightTheme.jpg" alt="Listado principal en modo claro" width="720"> |
+| Listado principal en modo oscuro | <img src="screenshots/DarkTheme.jpg" alt="Listado principal en modo oscuro" width="720"> |
+| Panel de detalle | <img src="screenshots/DetailPanel.jpg" alt="Panel de detalle de Pokemon" width="720"> |
+| Filtro por tipo | <img src="screenshots/FilterTypes.jpg" alt="Filtro por tipo" width="720"> |
+| Filtro por generacion | <img src="screenshots/FilterGen.jpg" alt="Filtro por generacion" width="720"> |
+| Ordenamiento | <img src="screenshots/Sorting.jpg" alt="Ordenamiento de Pokemon" width="720"> |
+| Favoritos | <img src="screenshots/Favorites1.jpg" alt="Panel de favoritos" width="720"> |
+| Favoritos persistentes | <img src="screenshots/Favorites2.jpg" alt="Favoritos guardados" width="720"> |
+| Constructor de equipo | <img src="screenshots/TeamBuilder.jpg" alt="Constructor de equipo" width="720"> |
+| Comparador - seleccion inicial | <img src="screenshots/Compare1.jpg" alt="Comparador seleccion inicial" width="720"> |
+| Comparador - busqueda | <img src="screenshots/Compare2.jpg" alt="Comparador busqueda de Pokemon" width="720"> |
+| Comparador - Pokemon seleccionado | <img src="screenshots/Compare3.jpg" alt="Comparador con dos Pokemon seleccionados" width="720"> |
+| Comparador - resultados | <img src="screenshots/Compare4.jpg" alt="Resultados del comparador" width="720"> |
+| Paginacion | <img src="screenshots/Paginado.jpg" alt="Paginacion del listado" width="720"> |
 
 ## Problemas encontrados y solucion
 
