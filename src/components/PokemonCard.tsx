@@ -1,48 +1,54 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import type { MouseEvent } from "react";
 import type { Pokemon } from "../types/pokemon";
-import { getPokemonDetails } from "../services/pokemonService";
+import { formatPokemonName, getPokemonImage, padPokemonId } from "../utils/pokemonFormat";
 
 interface PokemonCardProps {
-  name: string;
-  url: string;
+  pokemon: Pokemon;
+  isFavorite: boolean;
+  isSelected: boolean;
+  onSelect: (pokemon: Pokemon) => void;
+  onToggleFavorite: (pokemonId: number) => void;
 }
 
-function PokemonCard({ name }: PokemonCardProps) {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [loading, setLoading] = useState(true);
+function PokemonCard({ pokemon, isFavorite, isSelected, onSelect, onToggleFavorite }: PokemonCardProps) {
+  const primaryType = pokemon.types[0]?.type.name ?? "normal";
 
-  useEffect(() => {
-    getPokemonDetails(name)
-      .then((data) => {
-        setPokemon(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [name]);
-
-  if (loading) return <div className="card card--loading">{name}…</div>;
-  if (!pokemon) return null;
+  const handleFavoriteClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    onToggleFavorite(pokemon.id);
+  };
 
   return (
-    <Link to={`/pokemon/${pokemon.id}`} className="card-link">
-      <div className="card">
-        <img
-          src={pokemon.sprites.front_default}
-          alt={pokemon.name}
-          className="card__sprite"
-        />
-        <p className="card__number">#{pokemon.id}</p>
-        <p className="card__name">{pokemon.name}</p>
-        <div className="card__types">
-          {pokemon.types.map((t) => (
-            <span key={t.type.name} className={`type type--${t.type.name}`}>
-              {t.type.name}
-            </span>
-          ))}
-        </div>
+    <article
+      className={`pokemon-card pokemon-card--${primaryType} ${isSelected ? "pokemon-card--selected" : ""}`}
+      onClick={() => onSelect(pokemon)}
+      aria-label={`Select ${pokemon.name}`}
+    >
+      <div className="pokemon-card__topline">
+        <span>{padPokemonId(pokemon.id).replace("#", "")}</span>
+        <button
+          className={`icon-button favorite-button ${isFavorite ? "favorite-button--active" : ""}`}
+          type="button"
+          onClick={handleFavoriteClick}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          {isFavorite ? "♥" : "♡"}
+        </button>
       </div>
-    </Link>
+
+      <div className="pokemon-card__image-ring">
+        <img className="pokemon-card__image" src={getPokemonImage(pokemon)} alt={pokemon.name} loading="lazy" />
+      </div>
+
+      <h3>{formatPokemonName(pokemon.name)}</h3>
+      <div className="type-row">
+        {pokemon.types.map(({ type }) => (
+          <span key={type.name} className={`type-badge type-badge--${type.name}`}>
+            {type.name}
+          </span>
+        ))}
+      </div>
+    </article>
   );
 }
 
