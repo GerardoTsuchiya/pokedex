@@ -1,37 +1,132 @@
-import { useEffect, useState } from "react";
-import type { PokemonListItem } from "../types/pokemon";
-import { getPokemonList } from "../services/pokemonService";
-import PokemonCard from "../components/PokemonCard";
+import { useState } from "react";
+import FavoritesPanel from "../components/FavoritesPanel";
+import CompareModal from "../components/CompareModal";
+import PokemonDetailsPanel from "../components/PokemonDetailsPanel";
+import PokemonList from "../components/PokemonList";
+import SearchFilters from "../components/SearchFilters";
+import Sidebar from "../components/Sidebar";
+import TeamBuilder from "../components/TeamBuilder";
+import useFavorites from "../hooks/useFavorites";
+import usePokemonData from "../hooks/usePokemonData";
+import usePokemonFilters from "../hooks/usePokemonFilters";
+import useTeam from "../hooks/useTeam";
+import type { Pokemon } from "../types/pokemon";
+
+const POKEMON_LOAD_LIMIT = 1025;
 
 function HomePage() {
-  const [pokemons, setPokemons] = useState<PokemonListItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { pokemons, selectedPokemon, setSelectedPokemon, loading, error } = usePokemonData(POKEMON_LOAD_LIMIT);
+  const [compareModalPokemon, setCompareModalPokemon] = useState<Pokemon | null>(null);
 
-  useEffect(() => {
-    getPokemonList(20)
-      .then((data) => {
-        setPokemons(data.results);
-        setLoading(false);
-      })
-      .catch((err: unknown) => {
-        setError(err instanceof Error ? err.message : "Error desconocido");
-        setLoading(false);
-      });
-  }, []);
+  const { favorites, favoritePokemons, isFavorite, toggleFavorite } = useFavorites(pokemons);
+
+  const {
+    search,
+    selectedType,
+    selectedGeneration,
+    sortBy,
+    favoritesOnly,
+    page,
+    totalPages,
+    filteredPokemons,
+    currentPagePokemons,
+    setSearch,
+    setSelectedType,
+    setSelectedGeneration,
+    setSortBy,
+    setFavoritesOnly,
+    resetFilters,
+    goToPreviousPage,
+    goToNextPage,
+    setPage,
+  } = usePokemonFilters(pokemons, favorites);
+
+  const { teamPokemons, addToTeam, removeFromTeam, clearTeam } = useTeam(pokemons);
+
+  const showFavoritesOnly = () => {
+    setFavoritesOnly(true);
+    window.location.hash = "pokedex";
+  };
 
   return (
-    <div className="home">
-      <h1 className="home__title">Pokédex</h1>
-      {loading && <p className="status">Cargando Pokémon…</p>}
-      {error && <p className="status status--error">{error}</p>}
-      {!loading && !error && (
-        <div className="grid">
-          {pokemons.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
-          ))}
-        </div>
-      )}
+    <div className="app-shell">
+      <Sidebar
+        loadedCount={pokemons.length}
+        totalCount={POKEMON_LOAD_LIMIT}
+        isOpen={isSidebarOpen}
+        onToggle={() => setIsSidebarOpen((current) => !current)}
+        onClose={() => setIsSidebarOpen(false)}
+        onShowFavorites={showFavoritesOnly}
+      />
+
+      <main className="main-layout" id="pokedex">
+        <SearchFilters
+          search={search}
+          selectedType={selectedType}
+          selectedGeneration={selectedGeneration}
+          sortBy={sortBy}
+          favoritesOnly={favoritesOnly}
+          onSearchChange={setSearch}
+          onTypeChange={setSelectedType}
+          onGenerationChange={setSelectedGeneration}
+          onSortChange={setSortBy}
+          onFavoritesOnlyChange={setFavoritesOnly}
+          onResetFilters={resetFilters}
+        />
+
+        <section className="content-grid">
+          <div className="pokedex-column">
+            <TeamBuilder
+              teamPokemons={teamPokemons}
+              selectedPokemon={selectedPokemon}
+              onAddToTeam={addToTeam}
+              onRemoveFromTeam={removeFromTeam}
+              onClearTeam={clearTeam}
+            />
+
+            <PokemonList
+              pokemons={currentPagePokemons}
+              totalResults={filteredPokemons.length}
+              loading={loading}
+              error={error}
+              page={page}
+              totalPages={totalPages}
+              favorites={favorites}
+              selectedPokemonId={selectedPokemon?.id ?? null}
+              onSelectPokemon={setSelectedPokemon}
+              onToggleFavorite={toggleFavorite}
+              onPreviousPage={goToPreviousPage}
+              onNextPage={goToNextPage}
+              onPageChange={setPage}
+            />
+          </div>
+
+          <aside className="details-column">
+            <FavoritesPanel
+              favoritePokemons={favoritePokemons}
+              favoritesCount={favorites.length}
+              onSelectPokemon={setSelectedPokemon}
+              onShowFavorites={showFavoritesOnly}
+            />
+
+            <PokemonDetailsPanel
+              pokemon={selectedPokemon}
+              isFavorite={selectedPokemon ? isFavorite(selectedPokemon.id) : false}
+              onToggleFavorite={toggleFavorite}
+              onAddToTeam={addToTeam}
+              onAddToCompare={setCompareModalPokemon}
+              onClose={() => setSelectedPokemon(null)}
+            />
+          </aside>
+        </section>
+      </main>
+
+      <CompareModal
+        initialPokemon={compareModalPokemon}
+        pokemons={pokemons}
+        onClose={() => setCompareModalPokemon(null)}
+      />
     </div>
   );
 }
