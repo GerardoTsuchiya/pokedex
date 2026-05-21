@@ -1,127 +1,179 @@
-# Pokédex con PokéAPI
+# Pokedex con PokeAPI
 
-**Materia:** Aplicaciones Web  
-**Fecha inicio:** 2026-05-12  
-**Stack:** React + Vite + TypeScript + React Router  
-**API:** https://pokeapi.co/api/v2  
-**Repo:** Aplicaciones_Web/Pokedex/pokedex/
+## Desarrollador
 
----
+Gerardo Tsuchiya
 
-## Progreso por clase
+## Descripcion
 
-### Clase 1 — Completada ✅
-**Objetivo:** Estructura base y primer consumo de API
+Aplicacion web tipo Pokedex construida con React, Vite y TypeScript. La app consume la API publica PokeAPI para listar Pokemon, consultar informacion detallada, buscar por nombre o numero, filtrar resultados, guardar favoritos, construir un equipo y comparar estadisticas base entre dos Pokemon.
 
-Archivos creados:
-- `src/types/pokemon.ts` — interfaces TypeScript
-- `src/services/pokemonService.ts` — funciones de fetch
-- `src/pages/HomePage.tsx` — listado de 20 Pokémon con sprites
-- `src/App.tsx` y `src/main.tsx` — entrada de la app
+El proyecto corresponde a la actividad integradora de Desarrollo Web y Aplicaciones Moviles. Su objetivo es demostrar consumo de API REST, organizacion por componentes, manejo de estado, persistencia local, manejo de errores, responsividad y uso de Git con commits progresivos.
 
-**Entregable:** 20 Pokémon visibles en pantalla con nombre e imagen.
+## Tecnologias utilizadas
 
-### Clase 2 — Completada ✅
-**Objetivo:** Componentes reutilizables, navegación y pantalla de detalle
+- React
+- Vite
+- TypeScript
+- React Router
+- Fetch API
+- localStorage
+- CSS responsive
+- pnpm
 
-Archivos creados/modificados:
-- `src/components/PokemonCard.tsx` — tarjeta reutilizable que hace su propio fetch para obtener tipos, imagen y número
-- `src/pages/DetailPage.tsx` — pantalla de detalle con imagen, tipos, peso, altura, habilidades y estadísticas base
-- `src/App.tsx` — React Router configurado con rutas `/` y `/pokemon/:id`
-- `src/pages/HomePage.tsx` — actualizado para usar `PokemonCard` en lugar de `<li>` inline
+## API utilizada
 
-**Entregable:** Listado con tarjetas completas (RF01) y pantalla de detalle funcional (RF02) con navegación entre ambas.
+- PokeAPI: https://pokeapi.co/api/v2
+- Documentacion oficial: https://pokeapi.co/docs/v2
 
-### Clase 3 — Completada ✅
-Búsqueda por nombre/número, filtros por tipo, favoritos con persistencia en localStorage, estados de carga, error y sin resultados.
+## Instalacion
 
-### Clase 4 — Completada ✅
-Comparador de estadísticas entre dos Pokémon, diseño final responsive, paginación y preparación para demo.
+Requisitos:
 
----
+- Node.js
+- pnpm
 
-## Historial de commits
-
-| Hash | Mensaje |
-|------|---------|
-| `717568e` | feat: creación de estructura base e instalación de dependencias base |
-| `f995d56` | feat(clase1): tipos, servicio y listado inicial de 20 pokémon |
-| `cdc0a6c` | docs(pokedex): reemplazar README de Vite con nota del proyecto |
-| `3d32fd1` | Aplicaciones-Web Clase 2: componentes, detalle y navegación (asistido) |
-
-
-
----
-
-## Instalación y ejecución
-
-```bash
-npm install
-npm run dev
-```
-
-Si usas pnpm:
+Instalar dependencias:
 
 ```bash
 pnpm install
+```
+
+## Ejecucion en desarrollo
+
+```bash
 pnpm dev
 ```
 
-## Build de producción
+Despues de ejecutar el comando, abrir la URL que muestra Vite en la terminal. Normalmente sera:
+
+```txt
+http://localhost:5173
+```
+
+## Comandos utiles
+
+Ejecutar revision de lint:
 
 ```bash
-npm run build
+pnpm lint
+```
+
+Generar build de produccion:
+
+```bash
+pnpm build
+```
+
+Previsualizar el build:
+
+```bash
+pnpm preview
 ```
 
 ## Funcionalidades implementadas
 
-- Listado de Pokémon con nombre, imagen, número y tipos.
-- Detalle de Pokémon con imagen, tipos, peso, altura, categoría, descripción, habilidades con explicación, estadísticas base y cadena evolutiva.
-- Búsqueda por nombre y número.
-- Filtro por tipo y generación.
-- Ordenamiento por número, nombre, altura y peso.
+- Listado de Pokemon con nombre, imagen, numero y tipos.
+- Detalle de Pokemon seleccionado con imagen, tipos, altura, peso, categoria, descripcion, habilidades, estadisticas base y cadena evolutiva.
+- Busqueda por nombre y numero.
+- Filtro por tipo.
+- Filtro por generacion.
+- Ordenamiento por numero, nombre, altura y peso.
 - Favoritos con persistencia en localStorage.
-- Constructor de equipo de 6 Pokémon con persistencia en localStorage.
-- Comparador de estadísticas base entre dos Pokémon.
+- Constructor de equipo de hasta 6 Pokemon con persistencia en localStorage.
+- Comparador de estadisticas base entre dos Pokemon.
 - Estados de carga, error y sin resultados.
-- Paginación.
-- Diseño responsive.
+- Paginacion del listado.
+- Modo claro y modo oscuro.
+- Barras visuales para estadisticas.
+- Diseno responsive para escritorio y pantallas pequenas.
+- Colores visuales relacionados con el tipo principal del Pokemon.
 
-## Estructura principal
+## Requerimientos cubiertos
+
+| ID | Requerimiento | Estado |
+| --- | --- | --- |
+| RF01 | Listado de Pokemon | Completado |
+| RF02 | Detalle de Pokemon | Completado |
+| RF03 | Busqueda por nombre | Completado |
+| RF04 | Filtros por tipo | Completado |
+| RF05 | Favoritos con persistencia local | Completado |
+| RF06 | Comparador de estadisticas | Completado |
+| RF07 | Estados de carga, error y sin resultados | Completado |
+| RT01 | Uso de TypeScript | Completado |
+| RT02 | Logica de API separada en servicios | Completado |
+| RT03 | Componentes reutilizables | Completado |
+| RT04 | Tipos e interfaces para respuestas principales | Completado |
+| RT05 | Manejo de errores de red | Completado |
+| RT06 | Commits claros y progresivos | Completado |
+| RT07 | Interfaz responsive | Completado |
+| RT08 | Logica separada por archivos y responsabilidades | Completado |
+
+## Estructura del proyecto
 
 ```txt
 src/
-  components/   # UI reutilizable: tarjetas, filtros, detalle, equipo, favoritos y comparador
-  hooks/        # lógica reutilizable: API, filtros, favoritos, equipo y comparador
-  pages/        # pantallas principales
-  services/     # consumo de PokéAPI
-  storage/      # lectura y escritura en localStorage
-  types/        # interfaces TypeScript
-  utils/        # funciones auxiliares de formato
+  components/   Componentes reutilizables de la interfaz
+  hooks/        Logica reutilizable para datos, filtros, favoritos y equipo
+  pages/        Pantallas principales
+  services/     Consumo de PokeAPI
+  storage/      Lectura y escritura en localStorage
+  types/        Tipos e interfaces de TypeScript
+  utils/        Funciones auxiliares de formato
 ```
 
-## Notas técnicas
+## Capturas de pantalla
 
-El listado básico de PokéAPI solo devuelve nombre y URL. Para mostrar imagen, tipos, altura, peso, habilidades y estadísticas, el servicio `getPokemonBatch` primero obtiene la lista y luego consulta el detalle de cada Pokémon con `Promise.all`.
+Para la entrega final, colocar las capturas principales en una carpeta `docs/screenshots/` con nombres claros. Capturas sugeridas:
 
-La pantalla principal `HomePage.tsx` funciona como contenedor: conecta hooks con componentes visuales. La lógica se separó en custom hooks:
+| Vista | Archivo sugerido | Evidencia |
+| --- | --- | --- |
+| Listado principal | `docs/screenshots/listado.png` | Tarjetas con nombre, numero, imagen y tipos |
+| Detalle | `docs/screenshots/detalle.png` | Informacion completa de un Pokemon |
+| Filtros y favoritos | `docs/screenshots/filtros-favoritos.png` | Busqueda, filtro por tipo y favoritos |
+| Comparador | `docs/screenshots/comparador.png` | Comparacion de estadisticas base |
+| Responsive | `docs/screenshots/responsive.png` | Vista adaptada a pantalla pequena |
 
-- `usePokemonData` carga Pokémon desde PokéAPI y maneja `loading` y `error`.
-- `usePokemonExtraDetails` carga la descripción, categoría, explicaciones de habilidades y cadena evolutiva del Pokémon seleccionado.
-- `usePokemonFilters` maneja búsqueda, filtro por tipo/generación, ordenamiento y paginación.
-- `useFavorites` maneja favoritos y persistencia local.
-- `useTeam` maneja el equipo de 6 Pokémon y persistencia local.
-- `usePokemonCompare` maneja la comparación de dos Pokémon.
+## Problemas encontrados y solucion
 
-Los favoritos y el equipo se guardan como arreglos de IDs en `localStorage` para mantenerlos al recargar o cerrar la aplicación.
+- El listado inicial de PokeAPI solo entrega `name` y `url`.
+  - Solucion: se creo `getPokemonBatch`, que obtiene la lista y despues consulta el detalle de cada Pokemon para mostrar imagen, tipos, altura, peso, habilidades y estadisticas.
+- Cargar informacion extra de todos los Pokemon desde el inicio podia volver lenta la aplicacion.
+  - Solucion: el detalle extendido, habilidades y cadena evolutiva se consultan solo cuando el usuario selecciona un Pokemon.
+- Era necesario conservar favoritos y equipo al recargar la pagina.
+  - Solucion: se guardan arreglos de IDs en localStorage.
+- El filtro, ordenamiento y paginacion podian mezclar responsabilidades con la vista.
+  - Solucion: se separo esa logica en el hook `usePokemonFilters`.
+- Algunas peticiones secundarias pueden fallar.
+  - Solucion: la app mantiene el detalle basico disponible y muestra estados de carga, error o informacion parcial.
 
+## Flujo sugerido para la demo
 
-## Mejora de detalle visual
+1. Abrir la aplicacion y mostrar el listado principal.
+2. Usar la busqueda por nombre o numero.
+3. Aplicar filtro por tipo o generacion.
+4. Seleccionar un Pokemon y mostrar el panel de detalle.
+5. Agregar Pokemon a favoritos y al equipo.
+6. Abrir el comparador y comparar dos Pokemon.
+7. Cambiar entre modo claro y oscuro.
+8. Mostrar la responsividad reduciendo el ancho de pantalla.
 
-El panel de detalle consulta información extra solo cuando el usuario selecciona un Pokémon. Esto evita cargar descripciones, habilidades y evoluciones de todos los Pokémon desde el inicio. La información adicional viene de:
+## Historial resumido de commits
 
-- `pokemon-species/{id}` para descripción, categoría y URL de cadena evolutiva.
-- `ability/{name}` para descripción de habilidades.
-- URL de `evolution_chain` para mostrar las etapas evolutivas.
+| Hash | Mensaje |
+| --- | --- |
+| `b1ded85` | feat(data): ampliar consumo de PokeAPI |
+| `8ad9f8e` | refactor(ui): separar tarjetas y listado |
+| `65f5bde` | feat(filters): agregar busqueda filtros y paginacion |
+| `62ed1fe` | feat(collections): agregar favoritos y equipo |
+| `3edcaea` | feat(details): enriquecer panel de detalle |
+| `8f41889` | feat(compare): agregar comparador de estadisticas |
+| `4ca39a6` | feat(app): integrar experiencia completa |
+| `96cb83f` | docs: actualizar avance y uso del proyecto |
 
-Si una petición secundaria falla, la app conserva el detalle básico del Pokémon y muestra la información disponible.
+## Fuentes de referencia
+
+- PokeAPI Docs: https://pokeapi.co/docs/v2
+- PokeAPI: https://pokeapi.co/
+- React: https://react.dev/
+- Vite: https://vite.dev/
