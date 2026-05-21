@@ -8,7 +8,7 @@ Gerardo Tsuchiya
 
 Aplicacion web tipo Pokedex construida con React, Vite y TypeScript. La app consume la API publica PokeAPI para listar Pokemon, consultar informacion detallada, buscar por nombre o numero, filtrar resultados, guardar favoritos, construir un equipo y comparar estadisticas base entre dos Pokemon.
 
-El proyecto corresponde a la actividad integradora de Desarrollo Web y Aplicaciones Moviles. Su objetivo es demostrar consumo de API REST, organizacion por componentes, manejo de estado, persistencia local, manejo de errores, responsividad y uso de Git con commits progresivos.
+El proyecto corresponde a la actividad de Aplicaciones Web y Aplicaciones Moviles. Su objetivo es demostrar consumo de API REST, organizacion por componentes, manejo de estado, persistencia local, manejo de errores, responsividad y uso de Git con commits progresivos.
 
 ## Tecnologias utilizadas
 
