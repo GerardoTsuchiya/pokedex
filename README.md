@@ -149,6 +149,10 @@ Las evidencias visuales se encuentran en la carpeta `screenshots/`.
   - Solucion: se creo `getPokemonBatch`, que obtiene la lista y despues consulta el detalle de cada Pokemon para mostrar imagen, tipos, altura, peso, habilidades y estadisticas.
 - Cargar informacion extra de todos los Pokemon desde el inicio podia volver lenta la aplicacion.
   - Solucion: el detalle extendido, habilidades y cadena evolutiva se consultan solo cuando el usuario selecciona un Pokemon.
+- Mostrar o procesar los 1025 Pokemon al mismo tiempo podia afectar el rendimiento de la interfaz.
+  - Solucion: la lista base se carga una vez, pero el hook `usePokemonFilters` pagina los resultados y solo entrega 24 Pokemon visibles por pagina. Asi se evita renderizar toda la coleccion de una sola vez.
+- Al buscar, filtrar, ordenar o cambiar de pagina, la aplicacion podia recalcular la misma lista derivada en cada render.
+  - Solucion: se uso `useMemo` para reutilizar resultados calculados cuando las dependencias no cambian, evitando reprocesar filtros, ordenamientos, favoritos y paginacion innecesariamente.
 - Era necesario conservar favoritos y equipo al recargar la pagina.
   - Solucion: se guardan arreglos de IDs en localStorage.
 - El filtro, ordenamiento y paginacion podian mezclar responsabilidades con la vista.
